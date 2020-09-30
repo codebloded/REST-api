@@ -10,7 +10,7 @@ router.get('/', (req, res)=>{
     const getData = User.find().then(data=>{
         res.json(data);
     }).catch(err=>{
-        res.json({message:"not found"});
+        res.json({message:err});
     })
 });
 router.post('/api', (req, res, next)=>{
@@ -32,7 +32,6 @@ router.post('/api', (req, res, next)=>{
 
 router.post('/:apiId', (req, res)=>{
     const apiID = User.findById(req.params.apiId).then(id=>{
-        console.log(id)
         res.json(id);
     }).catch(err=>{
         res.json({message:'Not found'});
@@ -48,8 +47,8 @@ router.delete('/:apiId', (req,res)=>{
 });
 
 router.patch('/:apiId', (req, res)=>{
-    User.updateOne({_id:req.params.apiId}, {$set:{name:req.body, phone:req.body.phone, email:req.body.email }}).then(updateed=>{
-        res.json(updateed);
+    User.updateOne({_id:req.params.apiId}, {$set:{name:req.body, phone:req.body.phone, email:req.body.email }}).then(updated=>{
+        res.json(updated);
     }).catch(err=>{
         res.json({message:err});
     })
